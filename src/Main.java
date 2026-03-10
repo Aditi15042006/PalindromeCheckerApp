@@ -1,66 +1,27 @@
-class UseCase8PalindromeCheckerApp {
+class UseCase9PalindromeCheckerApp {
 
-    // Node class for Linked List
-    static class Node {
-        char data;
-        Node next;
+    // Recursive method
+    static boolean isPalindrome(String str, int start, int end) {
 
-        Node(char data) {
-            this.data = data;
-            this.next = null;
-        }
-    }
-
-    // Function to check palindrome
-    static boolean isPalindrome(Node head) {
-
-        Node slow = head;
-        Node fast = head;
-
-        // Find middle of list
-        while (fast != null && fast.next != null) {
-            slow = slow.next;
-            fast = fast.next.next;
+        // Base condition
+        if(start >= end) {
+            return true;
         }
 
-        // Reverse second half
-        Node prev = null;
-        while (slow != null) {
-            Node next = slow.next;
-            slow.next = prev;
-            prev = slow;
-            slow = next;
+        // Check characters
+        if(str.charAt(start) != str.charAt(end)) {
+            return false;
         }
 
-        // Compare halves
-        Node first = head;
-        Node second = prev;
-
-        while (second != null) {
-            if (first.data != second.data) {
-                return false;
-            }
-            first = first.next;
-            second = second.next;
-        }
-
-        return true;
+        // Recursive call
+        return isPalindrome(str, start + 1, end - 1);
     }
 
     public static void main(String[] args) {
 
         String word = "madam";
 
-        // Convert string to linked list
-        Node head = new Node(word.charAt(0));
-        Node current = head;
-
-        for (int i = 1; i < word.length(); i++) {
-            current.next = new Node(word.charAt(i));
-            current = current.next;
-        }
-
-        if (isPalindrome(head)) {
+        if(isPalindrome(word, 0, word.length() - 1)) {
             System.out.println("The given string is a Palindrome");
         } else {
             System.out.println("The given string is not a Palindrome");
