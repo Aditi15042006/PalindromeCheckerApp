@@ -1,33 +1,66 @@
-import java.util.Deque;
-import java.util.ArrayDeque;
+class UseCase8PalindromeCheckerApp {
 
-class UseCase7PalindromeCheckerApp {
+    // Node class for Linked List
+    static class Node {
+        char data;
+        Node next;
+
+        Node(char data) {
+            this.data = data;
+            this.next = null;
+        }
+    }
+
+    // Function to check palindrome
+    static boolean isPalindrome(Node head) {
+
+        Node slow = head;
+        Node fast = head;
+
+        // Find middle of list
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        // Reverse second half
+        Node prev = null;
+        while (slow != null) {
+            Node next = slow.next;
+            slow.next = prev;
+            prev = slow;
+            slow = next;
+        }
+
+        // Compare halves
+        Node first = head;
+        Node second = prev;
+
+        while (second != null) {
+            if (first.data != second.data) {
+                return false;
+            }
+            first = first.next;
+            second = second.next;
+        }
+
+        return true;
+    }
 
     public static void main(String[] args) {
 
         String word = "madam";
 
-        Deque<Character> deque = new ArrayDeque<>();
+        // Convert string to linked list
+        Node head = new Node(word.charAt(0));
+        Node current = head;
 
-        // Insert characters into deque
-        for(int i = 0; i < word.length(); i++) {
-            deque.addLast(word.charAt(i));
+        for (int i = 1; i < word.length(); i++) {
+            current.next = new Node(word.charAt(i));
+            current = current.next;
         }
 
-        boolean isPalindrome = true;
-
-        // Compare front and rear characters
-        while(deque.size() > 1) {
-            char first = deque.removeFirst();
-            char last = deque.removeLast();
-
-            if(first != last) {
-                isPalindrome = false;
-                break;
-            }
-        }
-
-        if(isPalindrome) {
+        if (isPalindrome(head)) {
             System.out.println("The given string is a Palindrome");
         } else {
             System.out.println("The given string is not a Palindrome");
