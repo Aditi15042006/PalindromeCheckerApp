@@ -1,19 +1,26 @@
-public class UseCase1PalindromeCheckerApp {
-
-    private static final String APP_NAME = "Palindrome Checker App";
-    private static final String APP_VERSION = "Version 1.0";
-
-
+class UseCase4PalindromeCheckerApp {
     public static void main(String[] args) {
 
-        System.out.println("=================================");
-        System.out.println("Welcome to " + APP_NAME);
-        System.out.println(APP_VERSION);
-        System.out.println("=================================");
-        System.out.println("This application validates whether");
-        System.out.println("a given string is a palindrome.");
-        System.out.println();
+        String word = "madam";
+        char[] arr = word.toCharArray();
 
-        System.out.println("Application initialized successfully.");
+        int start = 0;
+        int end = arr.length - 1;
+        boolean isPalindrome = true;
+
+        while(start < end) {
+            if(arr[start] != arr[end]) {
+                isPalindrome = false;
+                break;
+            }
+            start++;
+            end--;
+        }
+
+        if(isPalindrome) {
+            System.out.println("The given string is a Palindrome");
+        } else {
+            System.out.println("The given string is not a Palindrome");
+        }
     }
 }
